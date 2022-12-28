@@ -1,30 +1,41 @@
 import React from 'react'
-import CaptureKeyPress from '@/components/CaptureKeyPress'
-import { KEY_CODE } from '@/constants'
 import EscapeStack from '@/utils/escape-stack'
+import { v4 as uuidv4 } from 'uuid'
 
 type EscapeHandlerProps = {
   handler: () => void
-  status?: 'on' | 'off'
+  active?: boolean
 }
 
-class EscapeHandler extends React.PureComponent {
-  // componentDidUpdate(prevProps: Readonly<EscapeHandlerProps>) {
-  //   if (prevProps.status !== this.props.status && this.props.status === 'on') {
-  //     EscapeStack.push(this.props.handler)
-  //   }
-  // }
+class EscapeHandler extends React.PureComponent<EscapeHandlerProps> {
+  stackKey = uuidv4()
 
-  handlePressEsc = () => {
-    const stackItem = EscapeStack.pop()
-    if (!stackItem) return
-    if (stackItem.handler && typeof stackItem.handler === 'function') {
-      stackItem.handler()
+  componentDidMount() {
+    EscapeStack.push({
+      key: this.stackKey,
+      handler: this.props.handler,
+    })
+  }
+
+  componentDidUpdate(prevProps: Readonly<EscapeHandlerProps>) {
+    if (prevProps.active !== this.props.active) {
+      if (this.props.active) {
+        EscapeStack.push({
+          key: this.stackKey,
+          handler: this.props.handler,
+        })
+      } else {
+        EscapeStack.manualPop([this.stackKey])
+      }
     }
   }
 
+  componentWillUnmount() {
+    EscapeStack.manualPop([this.stackKey])
+  }
+
   render() {
-    return <CaptureKeyPress keyCode={KEY_CODE.ESC} handler={this.handlePressEsc} />
+    return null
   }
 }
 

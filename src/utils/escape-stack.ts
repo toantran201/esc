@@ -21,6 +21,10 @@ const EscapeStack = {
     if (!window.__escape_stack) {
       EscapeStack.reset()
     }
+    const existIdx = window.__escape_stack.findIndex((s) => s.key === item.key)
+    if (existIdx >= 0) {
+      throw new Error('Key already exists')
+    }
     window.__escape_stack.push(item)
   },
 
@@ -46,6 +50,12 @@ window.addEventListener('keyup', (event: KeyboardEvent) => {
   if (!event.keyCode) return
   if (event.keyCode === KEY_CODE.ESC) {
     event.preventDefault()
+    const el = event.target as HTMLElement
+    const tagName = el?.tagName
+    if (tagName === 'TEXTAREA' || tagName === 'INPUT' || tagName === 'SELECT') {
+      el?.blur()
+      return
+    }
     const stackItem = EscapeStack.pop()
     if (!stackItem) return
     if (stackItem.handler && typeof stackItem.handler === 'function') {

@@ -1,5 +1,5 @@
 import React from 'react'
-import EscapeStack from '@/utils/escape-stack'
+import { EscapeStack } from '@/utils/escape-stack'
 import { v4 as uuidv4 } from 'uuid'
 
 type EscapeHandlerProps = {

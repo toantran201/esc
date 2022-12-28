@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import EscapeHandler from '@/components/EscapeHandler'
+import { EscapeHandler } from '../libs/escape'
 
 const Dependent = () => {
   const [isShowX, setIsShowX] = useState(false)

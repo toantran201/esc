@@ -12,8 +12,7 @@
     "query-string": "^7.1.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "uuid": "^9.0.0",
-    "escape": "file:libs/escape"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.3.0",

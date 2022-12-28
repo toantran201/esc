@@ -15,7 +15,7 @@ if (!window.__escape_stack) {
   window.__escape_stack = []
 }
 
-const EscapeStack = {
+export const EscapeStack = {
   push: (item: EscapeStackItem) => {
     if (!item.handler || !item.key) return
     if (!window.__escape_stack) {
@@ -63,5 +63,3 @@ window.addEventListener('keyup', (event: KeyboardEvent) => {
     }
   }
 })
-
-export default EscapeStack

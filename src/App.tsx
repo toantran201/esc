@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Independent from '@/Independent'
 import Dependent from '@/Dependent'
 import { Button, Drawer } from '@material-ui/core'
-import EscapeHandler from '@/components/EscapeHandler'
+import { EscapeHandler } from '../libs/escape'
 
 function App() {
   const [openDrawer, setOpenDrawer] = useState(false)

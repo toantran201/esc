@@ -1,10 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-import EscapeStack from '@/utils/escape-stack'
-import EscapeHandler from '@/components/EscapeHandler'
-
-const hideARefKey = uuidv4()
-const hideBRefKey = uuidv4()
+import React, { useState } from 'react'
+import { EscapeHandler } from '../libs/escape'
 
 const Independent = () => {
   const [isShowA, setIsShowA] = useState(false)
